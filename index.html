@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real-time Communication</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+  }
+  .container {
+    max-width: 600px;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  label, textarea {
+    display: block;
+    margin-bottom: 10px;
+  }
+  textarea {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+  }
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .response {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Real-time Communication</h2>
+    <label for="input">Type a message:</label>
+    <textarea id="input" placeholder="Type your message..."></textarea>
+    <button onclick="sendMessage()">Send Message</button>
+    <div id="response" class="response"></div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      var userInput = document.getElementById('input').value.trim();
+
+      // Ensure user input is not empty
+      if (!userInput) {
+        alert('Please enter a message.');
+        return;
+      }
+
+      // Simulated backend endpoint (replace with actual backend URL)
+      var backendUrl = 'https://example.com/process-message';
+
+      // Simulate sending message to backend
+      fetch(backendUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: userInput }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Display response from backend
+        document.getElementById('response').innerHTML = `<p><strong>Response:</strong> ${data.response}</p>`;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while processing your request.');
+      });
+
+      // Clear input after sending message
+      document.getElementById('input').value = '';
+    }
+  </script>
+</body>
+</html>
